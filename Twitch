@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Promotion Platform - Partnership Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0e0e10 0%, #18181b 100%);
+            color: #efeff1;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2e2e35;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #adadb8;
+            margin-bottom: 30px;
+        }
+
+        .partnership-card {
+            background: #18181b;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #2e2e35;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .partnership-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2e2e35;
+        }
+
+        .buyer-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .buyer-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f77737 0%, #ff5733 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 32px;
+            border: 3px solid #9146ff;
+        }
+
+        .buyer-details h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .buyer-meta {
+            display: flex;
+            gap: 20px;
+            color: #adadb8;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .campaign-details {
+            background: #0e0e10;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .campaign-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2e2e35;
+        }
+
+        .campaign-row:last-child {
+            border-bottom: none;
+        }
+
+        .campaign-label {
+            color: #adadb8;
+            font-size: 14px;
+        }
+
+        .campaign-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .metrics-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #9146ff;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #1f1f23 0%, #26262c 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #2e2e35;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            border-color: #9146ff;
+            box-shadow: 0 8px 24px rgba(145, 70, 255, 0.2);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .metric-icon.followers {
+            background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);
+        }
+
+        .metric-icon.subs {
+            background: linear-gradient(135deg, #f77737 0%, #ff5733 100%);
+        }
+
+        .metric-icon.bits {
+            background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+        }
+
+        .metric-change {
+< truncated lines 236-299 >
+            flex: 1;
+            padding: 15px;
+            background: #1f1f23;
+            border-radius: 8px;
+            border-left: 3px solid #9146ff;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: #adadb8;
+            margin-bottom: 5px;
+        }
+
+        .timeline-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(145, 70, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #efeff1;
+            border: 2px solid #2e2e35;
+        }
+
+        .btn-secondary:hover {
+            border-color: #9146ff;
+            color: #9146ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">StreamBoost Pro</div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <div>
+                    <div style="font-weight: 600;">StreamerJohn</div>
+                    <div style="font-size: 13px; color: #adadb8;">Creator Account</div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="page-title">Partnership Analytics</h1>
+        <p class="page-subtitle">Track your collaboration performance and growth metrics</p>
+
+        <div class="partnership-card">
+            <div class="partnership-header">
+                <div class="buyer-info">
+                    <div class="buyer-avatar">GT</div>
+                    <div class="buyer-details">
+                        <h2>GamingTech Studios</h2>
+                        <div class="buyer-meta">
+                            <span>🎮 Gaming Brand</span>
+                            <span>📍 Los Angeles, CA</span>
+                            <span>🤝 Partnership Since: Nov 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-badge">✓ Completed</div>
+            </div>
+
+            <div class="campaign-details">
+                <div class="campaign-row">
+                    <span class="campaign-label">Campaign Type</span>
+                    <span class="campaign-value">Sponsored Streams + Product Showcase</span>
+                </div>
+                <div class="campaign-row">
+                    <span class="campaign-label">Duration</span>
+                    <span class="campaign-value">30 Days (Nov 15 - Dec 15, 2025)</span>
+                </div>
+                <div class="campaign-row">
+                    <span class="campaign-label">Total Streams</span>
+                    <span class="campaign-value">12 Streams</span>
+                </div>
+                <div class="campaign-row">
+                    <span class="campaign-label">Contract Value</span>
+                    <span class="campaign-value">$4,500</span>
+                </div>
+            </div>
+
+            <h3 class="metrics-section-title">📊 Growth Metrics During Partnership</h3>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon followers">👥</div>
+                        <div class="metric-change">
+                            ↑ +847
+                        </div>
+                    </div>
+                    <div class="metric-label">New Followers</div>
+                    <div class="metric-value">2,847</div>
+                    <div class="metric-subtext">Total followers gained during campaign</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon subs">⭐</div>
+                        <div class="metric-change">
+                            ↑ +312
+                        </div>
+                    </div>
+                    <div class="metric-label">New Subscriptions</div>
+                    <div class="metric-value">1,245</div>
+                    <div class="metric-subtext">Tier 1, 2, and 3 combined</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 72%;"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon bits">💎</div>
+                        <div class="metric-change">
+                            ↑ +18,420
+                        </div>
+                    </div>
+                    <div class="metric-label">Bits Received</div>
+                    <div class="metric-value">45,820</div>
+                    <div class="metric-subtext">≈ $458 in bits revenue</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 91%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">📈 Weekly Performance Timeline</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 1</div>
+                        <div class="timeline-value">+542 Followers</div>
+                        <div class="timeline-value" style="color: #f77737;">+187 Subs</div>
+                        <div class="timeline-value" style="color: #00e676;">8.2K Bits</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 2</div>
+                        <div class="timeline-value">+698 Followers</div>
+                        <div class="timeline-value" style="color: #f77737;">+289 Subs</div>
+                        <div class="timeline-value" style="color: #00e676;">11.5K Bits</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 3</div>
+                        <div class="timeline-value">+821 Followers</div>
+                        <div class="timeline-value" style="color: #f77737;">+412 Subs</div>
+                        <div class="timeline-value" style="color: #00e676;">14.8K Bits</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 4</div>
+                        <div class="timeline-value">+786 Followers</div>
+                        <div class="timeline-value" style="color: #f77737;">+357 Subs</div>
+                        <div class="timeline-value" style="color: #00e676;">11.3K Bits</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">💰 Revenue Impact</div>
+                <div class="metrics-grid" style="margin-bottom: 0;">
+                    <div style="padding: 15px; background: #1f1f23; border-radius: 8px;">
+                        <div style="color: #adadb8; font-size: 13px; margin-bottom: 8px;">Sponsorship Payment</div>
+                        <div style="font-size: 24px; font-weight: 700; color: #9146ff;">$4,500</div>
+                    </div>
+                    <div style="padding: 15px; background: #1f1f23; border-radius: 8px;">
+                        <div style="color: #adadb8; font-size: 13px; margin-bottom: 8px;">Subscription Revenue</div>
+                        <div style="font-size: 24px; font-weight: 700; color: #f77737;">$3,112</div>
+                    </div>
+                    <div style="padding: 15px; background: #1f1f23; border-radius: 8px;">
+                        <div style="color: #adadb8; font-size: 13px; margin-bottom: 8px;">Bits Revenue</div>
+                        <div style="font-size: 24px; font-weight: 700; color: #00e676;">$458</div>
+                    </div>
+                    <div style="padding: 15px; background: #1f1f23; border-radius: 8px; border: 2px solid #9146ff;">
+                        <div style="color: #adadb8; font-size: 13px; margin-bottom: 8px;">Total Campaign Revenue</div>
+                        <div style="font-size: 24px; font-weight: 700; color: #9146ff;">$8,070</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary">📊 Download Full Report</button>
+                <button class="btn btn-secondary">🔄 Request New Partnership</button>
+                <button class="btn btn-secondary">💬 Contact Buyer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bars on load
+        window.addEventListener('load', () => {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
